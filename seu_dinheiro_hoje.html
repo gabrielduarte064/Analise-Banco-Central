@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seu Dinheiro Hoje</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  background: #f4f1ea;
+  color: #2b2b2b;
+}
+
+.topo {
+  background: #1b1f3b;
+  color: white;
+  padding: 26px 24px;
+  text-align: center;
+}
+
+.topo h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.topo p {
+  margin: 6px 0 0 0;
+  color: #c8cce0;
+  font-size: 13px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 20px 60px 20px;
+}
+
+.tab { display: none; }
+.tab.active { display: block; }
+
+.grade-capa {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.botao-capa {
+  display: block;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  border-radius: 18px;
+  padding: 24px;
+  color: white;
+  font-family: inherit;
+  transition: transform 0.15s ease;
+}
+
+.botao-capa:hover { transform: translateY(-4px); }
+
+.botao-capa .icone {
+  font-size: 34px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.botao-capa .titulo {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.botao-capa .subtitulo {
+  font-size: 13px;
+  margin-top: 6px;
+  opacity: 0.9;
+}
+
+.cor-dolar { background: #1f8a4c; }
+.cor-euro { background: #2453a6; }
+.cor-poupanca { background: #b8860b; }
+.cor-selic { background: #8e2c48; }
+.cor-inflacao { background: #a8471f; }
+.cor-desemprego { background: #4a4a68; }
+
+.voltar {
+  display: inline-block;
+  margin-bottom: 18px;
+  background: #1b1f3b;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.titulo-secao {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.subtitulo-secao {
+  color: #6b6b6b;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.cartao {
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.valor-grande {
+  font-size: 40px;
+  font-weight: 800;
+}
+
+.legenda-valor {
+  color: #6b6b6b;
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.linha-fatos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.fato {
+  background: #f4f1ea;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.fato .rotulo {
+  font-size: 12px;
+  color: #6b6b6b;
+  text-transform: uppercase;
+}
+
+.fato .numero {
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.numero.sobe { color: #1f8a4c; }
+.numero.desce { color: #b23a3a; }
+
+.frase-simples {
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+.destaque {
+  font-weight: 800;
+}
+
+.curiosidade {
+  background: #fff8e6;
+  border-left: 5px solid #b8860b;
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-top: 18px;
+}
+
+.curiosidade .rotulo-curiosidade {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #8a6d00;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.rodape {
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  margin-top: 40px;
+}
+
+@media (max-width: 600px) {
+  .valor-grande { font-size: 32px; }
+  .topo h1 { font-size: 21px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topo">
+  <h1>Seu Dinheiro Hoje</h1>
+  <p>Atualizado em 21/09/2026 as 23:10</p>
+</div>
+
+<div class="container">
+  
+    <div id="capa" class="tab active">
+      <p style="color:#6b6b6b; font-size:15px; margin-top:0;">
+        Escolha o que voce quer entender agora.
+      </p>
+      <div class="grade-capa">
+        <button class="botao-capa cor-dolar" onclick="mostrar('dolar', this)">
+          <div class="icone">US$</div>
+          <div class="titulo">Dolar</div>
+          <div class="subtitulo">quanto esta valendo hoje</div>
+        </button>
+        <button class="botao-capa cor-euro" onclick="mostrar('euro', this)">
+          <div class="icone">EUR</div>
+          <div class="titulo">Euro</div>
+          <div class="subtitulo">quanto esta valendo hoje</div>
+        </button>
+        <button class="botao-capa cor-poupanca" onclick="mostrar('poupanca', this)">
+          <div class="icone">%</div>
+          <div class="titulo">Poupanca</div>
+          <div class="subtitulo">quanto seu dinheiro rende</div>
+        </button>
+        <button class="botao-capa cor-selic" onclick="mostrar('selic', this)">
+          <div class="icone">$</div>
+          <div class="titulo">Juros (Selic)</div>
+          <div class="subtitulo">a taxa que mexe com tudo</div>
+        </button>
+        <button class="botao-capa cor-inflacao" onclick="mostrar('inflacao', this)">
+          <div class="icone">^</div>
+          <div class="titulo">Precos subindo</div>
+          <div class="subtitulo">inflacao do mes</div>
+        </button>
+        <button class="botao-capa cor-desemprego" onclick="mostrar('desemprego', this)">
+          <div class="icone">#</div>
+          <div class="titulo">Desemprego</div>
+          <div class="subtitulo">quem esta sem trabalho</div>
+        </button>
+      </div>
+    </div>
+    <div id="dolar" class="tab">
+      <button class="voltar" onclick="mostrar('capa', null)">voltar</button>
+      <div class="titulo-secao">Dolar</div>
+      <div class="subtitulo-secao">atualizado em 21/09/2026</div>
+
+      <div class="cartao">
+        <div class="valor-grande">R$ 5,11</div>
+        <div class="legenda-valor">1 dolar em reais</div>
+
+        <div class="linha-fatos">
+          <div class="fato">
+            <div class="rotulo">desde ontem</div>
+            <div class="numero desce">-0.89%</div>
+          </div>
+          <div class="fato">
+            <div class="rotulo">no ultimo mes</div>
+            <div class="numero desce">-1.44%</div>
+          </div>
+          <div class="fato">
+            <div class="rotulo">no ultimo ano</div>
+            <div class="numero desce">-5.43%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="curiosidade">
+        <div class="rotulo-curiosidade">Na pratica</div>
+        <p class="frase-simples">Com <span class="destaque">R$ 100</span>, hoje voce compra
+        <span class="destaque">19.56 dolares</span>.</p>
+        <p class="frase-simples">Nos ultimos meses, o dolar mais caro foi
+        <span class="destaque">R$ 5,57</span> (em 29/12/2025),
+        e o mais barato foi <span class="destaque">R$ 4,90</span>
+        (em 11/05/2026).</p>
+      </div>
+    </div>
+    <div id="euro" class="tab">
+      <button class="voltar" onclick="mostrar('capa', null)">voltar</button>
+      <div class="titulo-secao">Euro</div>
+      <div class="subtitulo-secao">atualizado em 21/09/2026</div>
+
+      <div class="cartao">
+        <div class="valor-grande">R$ 5,86</div>
+        <div class="legenda-valor">1 euro em reais</div>
+
+        <div class="linha-fatos">
+          <div class="fato">
+            <div class="rotulo">desde ontem</div>
+            <div class="numero desce">-0.85%</div>
+          </div>
+          <div class="fato">
+            <div class="rotulo">no ultimo mes</div>
+            <div class="numero desce">-3.21%</div>
+          </div>
+          <div class="fato">
+            <div class="rotulo">no ultimo ano</div>
+            <div class="numero desce">-7.08%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="curiosidade">
+        <div class="rotulo-curiosidade">Na pratica</div>
+        <p class="frase-simples">Com <span class="destaque">R$ 100</span>, hoje voce compra
+        <span class="destaque">17.06 euros</span>.</p>
+        <p class="frase-simples">O euro esta mais caro que o dolar, como quase sempre acontece.</p>
+      </div>
+    </div>
+    <div id="poupanca" class="tab">
+      <button class="voltar" onclick="mostrar('capa', null)">voltar</button>
+      <div class="titulo-secao">Poupanca</div>
+      <div class="subtitulo-secao">referente a 18/09/2026</div>
+
+      <div class="cartao">
+        <div class="valor-grande">+0.6388%</div>
+        <div class="legenda-valor">foi o quanto a poupanca rendeu neste mes</div>
+      </div>
+
+      <div class="curiosidade">
+        <div class="rotulo-curiosidade">Na pratica</div>
+        <p class="frase-simples">Quem guardou <span class="destaque">R$ 1.000</span> na poupanca
+        ha 12 meses, hoje teria <span class="destaque">R$ 1082.54</span>.</p>
+        <p class="frase-simples">Isso e um rendimento de
+        <span class="destaque">+8.25%</span> no ano.</p>
+      </div>
+    </div>
+    <div id="selic" class="tab">
+      <button class="voltar" onclick="mostrar('capa', null)">voltar</button>
+      <div class="titulo-secao">Juros (Selic)</div>
+      <div class="subtitulo-secao">referente a 01/09/2026</div>
+
+      <div class="cartao">
+        <div class="valor-grande">+0.72%</div>
+        <div class="legenda-valor">taxa basica de juros do Brasil, ao ano</div>
+      </div>
+
+      <div class="curiosidade">
+        <div class="rotulo-curiosidade">O que isso significa</div>
+        <p class="frase-simples">A Selic e a taxa que o Banco Central define para controlar a economia.
+        Quando ela sobe, os emprestimos ficam mais caros e a poupanca rende mais.
+        Quando ela cai, o contrario acontece.</p>
+        <p class="frase-simples">Nos ultimos meses, a Selic mais alta foi
+        <span class="destaque">+1.28%</span> (em 01/10/2025),
+        e a mais baixa foi <span class="destaque">+0.72%</span>
+        (em 01/09/2026).</p>
+      </div>
+    </div>
+    <div id="inflacao" class="tab">
+      <button class="voltar" onclick="mostrar('capa', null)">voltar</button>
+      <div class="titulo-secao">Precos subindo (inflacao)</div>
+      <div class="subtitulo-secao">referente a 01/08/2026</div>
+
+      <div class="cartao">
+        <div class="valor-grande">-0.32%</div>
+        <div class="legenda-valor">quanto os precos subiram neste mes (IPCA)</div>
+      </div>
+
+      <div class="curiosidade">
+        <div class="rotulo-curiosidade">Na pratica</div>
+        <p class="frase-simples">Nos ultimos 12 meses, os precos acumularam alta de
+        <span class="destaque">+4.22%</span>.</p>
+        <p class="frase-simples">Ou seja: um produto que custa
+        <span class="destaque">R$ 100.00</span> hoje,
+        custava por volta de <span class="destaque">R$ 95.95</span>
+        ha um ano.</p>
+      </div>
+    </div>
+    <div id="desemprego" class="tab">
+      <button class="voltar" onclick="mostrar('capa', null)">voltar</button>
+      <div class="titulo-secao">Desemprego</div>
+      <div class="subtitulo-secao">referente a 01/07/2026</div>
+
+      <div class="cartao">
+        <div class="valor-grande">+5.3%</div>
+        <div class="legenda-valor">a cada 100 pessoas que procuram trabalho, essa e a parte sem emprego</div>
+      </div>
+
+      <div class="curiosidade">
+        <div class="rotulo-curiosidade">Na pratica</div>
+        <p class="frase-simples">Na comparacao com o mes anterior, o desemprego
+        <span class="destaque">caiu</span>
+        (-1.85%).</p>
+      </div>
+    </div>
+  <div class="rodape">Dados publicos do Banco Central do Brasil.</div>
+</div>
+
+<script>
+function mostrar(id, botao) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>
